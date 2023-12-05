@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multer-Cloudinary-Demo</title>
+</head>
+
+<body>
+
+  <input id="photo-input-el" type="file" accept="image/png, image/jpeg" />
+
+  <button id="upload-button">Upload</button>
+
+  <script>
+    const photoInputEl = document.querySelector('#photo-input-el');
+    const uploadBtn = document.querySelector("#upload-button");
+
+    function uploadImg(event) {
+      event.preventDefault();
+
+      const file = photoInputEl.files[0];
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      fetch('/api/photo', {
+        method: 'POST',
+        body: formData
+      }).then((res) => {
+        return res.json();
+      }).then((data) => {
+        console.log(data);
+      }).catch((err) => {
+        console.log(err);
+      });
+
+
+    };
+
+    uploadBtn.addEventListener('click', uploadImg);
+
+
+  </script>
+</body>
+
+</html>
